@@ -1,0 +1,18 @@
+[client]
+# Mostrar detalles de errores
+showErrorDetails = true
+# Modo minimalista para ocultar elementos del toolbar
+toolbarMode = "minimal"
+
+[server]
+# Configuración del servidor
+enableXsrfProtection = true
+
+[browser]
+# No recopilar estadísticas de uso
+gatherUsageStats = false
+
+[ui]
+# Ocultar la barra superior con los iconos
+hideTopBar = true
+
