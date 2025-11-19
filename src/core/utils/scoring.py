@@ -50,8 +50,10 @@ def calculate_lead_score(
     
     if es_pico_estacional:
         escalabilidad_score = 100
-    elif "Multilingüe" in potencial_upsell or "Internacional" in str(potencial_upsell):
+    elif "Soporte multicanal (WhatsApp, IG, Email, etc.)" in potencial_upsell:
         escalabilidad_score = 100
+    elif "Escalamiento automático en temporada alta / picos" in potencial_upsell:
+        escalabilidad_score = 90
     elif len(potencial_upsell) >= 3:
         escalabilidad_score = 70
     

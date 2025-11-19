@@ -117,5 +117,5 @@ def get_categorization_instructions() -> str:
 
         9. **urgencia_nivel**: ["Alta", "Media", "Baja"]
 
-        10. **potencial_upsell**: Array de add-ons valorados: ["Multilingüe", "Integración CRM/Tickets", "Respuestas en tiempo real", "Personalización avanzada", "Compliance salud", "Programación automática"]
+        10. **potencial_upsell**: Array de add-ons valorados: ["Integración con CRM/Tickets existente", "Soporte multicanal (WhatsApp, IG, Email, etc.)", "Escalamiento automático en temporada alta / picos", "Respuestas personalizadas con tono de marca", "Reportes y analíticos de atención al cliente"]
     """

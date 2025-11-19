@@ -16,6 +16,14 @@ def calculate_upsell_radar(df: pd.DataFrame) -> go.Figure:
     Returns:
         Figura de Plotly (radar chart)
     """
+    categorias_fijas = [
+        "Integración con CRM/Tickets existente",
+        "Soporte multicanal (WhatsApp, IG, Email, etc.)",
+        "Escalamiento automático en temporada alta / picos",
+        "Respuestas personalizadas con tono de marca",
+        "Reportes y analíticos de atención al cliente"
+    ]
+    
     upsell_list = []
     
     for idx, row in df.iterrows():
@@ -38,22 +46,17 @@ def calculate_upsell_radar(df: pd.DataFrame) -> go.Figure:
     
     upsell_counts = pd.Series(upsell_list).value_counts()
     
-    if upsell_counts.empty:
-        fig = go.Figure()
-        fig.add_annotation(
-            text="No hay datos de oportunidades de upsell disponibles",
-            xref="paper", yref="paper",
-            x=0.5, y=0.5, showarrow=False
-        )
-        return fig
-    
     total_leads = len(df)
-    upsell_percentages = (upsell_counts / total_leads * 100).round(1)
+    
+    upsell_percentages = {}
+    for categoria in categorias_fijas:
+        count = upsell_counts.get(categoria, 0)
+        upsell_percentages[categoria] = round((count / total_leads) * 100, 1)
     
     fig = go.Figure()
     
-    r_values = list(upsell_percentages.values) + [upsell_percentages.values[0]]
-    theta_values = list(upsell_percentages.index) + [upsell_percentages.index[0]]
+    r_values = list(upsell_percentages.values()) + [list(upsell_percentages.values())[0]]
+    theta_values = list(upsell_percentages.keys()) + [list(upsell_percentages.keys())[0]]
     
     fig.add_trace(go.Scatterpolar(
         r=r_values,
@@ -70,21 +73,23 @@ def calculate_upsell_radar(df: pd.DataFrame) -> go.Figure:
         polar=dict(
             radialaxis=dict(
                 visible=True,
-                range=[0, max(upsell_percentages.values) * 1.2],
+                range=[0, 50],
                 showticklabels=True,
                 ticks="outside",
-                tickfont=dict(size=11, color="black")
+                tickfont=dict(size=11, color="black"),
+                tickvals=[0, 10, 20, 30, 40, 50],
+                ticktext=["0%", "10%", "20%", "30%", "40%", "50%"]
             ),
             angularaxis=dict(
                 showticklabels=True,
-                tickfont=dict(size=12, color="black"),
+                tickfont=dict(size=11, color="black"),
                 rotation=90
             )
         ),
         title="Oportunidades de Upsell (% de Leads que lo necesitan)",
-        height=550,
+        height=600,
         showlegend=False,
-        margin=dict(t=80, b=80, l=100, r=100)
+        margin=dict(t=100, b=100, l=120, r=120)
     )
     
     return fig

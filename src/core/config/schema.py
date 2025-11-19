@@ -97,12 +97,11 @@ CATEGORIZATION_SCHEMA: Dict[str, Any] = {
             "items": {
                 "type": "string",
                 "enum": [
-                    "Multilingüe",
-                    "Integración CRM/Tickets",
-                    "Respuestas en tiempo real",
-                    "Personalización avanzada",
-                    "Compliance salud",
-                    "Programación automática"
+                    "Integración con CRM/Tickets existente",
+                    "Soporte multicanal (WhatsApp, IG, Email, etc.)",
+                    "Escalamiento automático en temporada alta / picos",
+                    "Respuestas personalizadas con tono de marca",
+                    "Reportes y analíticos de atención al cliente"
                 ]
             }
         }
