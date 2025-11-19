@@ -201,16 +201,42 @@ Visualizaciones Plotly
 **Trade-off:** Limitado a ~1000 usuarios concurrentes (suficiente para este caso)
 
 ### 6. Sistema de Scoring de Leads
-**Decisión:** Fórmula cuantitativa basada en 3 pilares
+**Decisión:** Fórmula cuantitativa basada en 3 pilares + bonuses
 
 **Justificación:**
 ```python
-score = (volumen_score + urgencia_score + escalabilidad_score) / 3
+base_score = (volumen_score + urgencia_score + escalabilidad_score) / 3
+final_score = base_score + trigger_bonus + budget_bonus
 
 Donde:
-- volumen_score: 0-100 según interacciones/semana
-- urgencia_score: 0-100 según "Alta/Media/Baja"
-- escalabilidad_score: 0-100 según picos estacionales y potencial de crecimiento
+- volumen_score: 0-100 según nivel de volumen semanal
+  · Desconocido: 0 pts
+  · Bajo (<100): 20 pts
+  · Medio (100-250): 50 pts
+  · Alto (251-500): 80 pts
+  · Muy Alto (>500): 100 pts
+
+- urgencia_score: 0-100 según nivel de urgencia
+  · Baja: 30 pts
+  · Media: 60 pts
+  · Alta: 100 pts
+
+- escalabilidad_score: 0-100 según potencial de crecimiento
+  · Picos estacionales: 100 pts
+  · Soporte multicanal: 100 pts
+  · Escalamiento automático: 90 pts
+  · 3+ add-ons: 70 pts
+  · Base: 40 pts
+
+- trigger_bonus: +0 a +5 pts
+  · Recomendación/Evento/LinkedIn: +5 pts
+  · Búsqueda activa (Google): +3 pts
+  · Sin fuente clara: 0 pts
+
+- budget_bonus: +0 a +5 pts
+  · Indicadores internacionales: +5 pts
+  · Sectores de alto presupuesto: +3 pts
+  · Sin info: 0 pts
 ```
 
 **Ventaja:** Priorización objetiva y replicable de leads.
